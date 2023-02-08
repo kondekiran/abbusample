@@ -14,12 +14,12 @@
       <mat-icon>notifications</mat-icon>
   </button> -->
   <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon>more_vert</mat-icon>
   </button>
-  <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
 
+  <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
       <button mat-menu-item (click)="Logout()">
-          <mat-icon>exit_to_app</mat-icon>Logout
+      <mat-icon>exit_to_app</mat-icon>Logout
       </button>
   </mat-menu>
 </mat-toolbar>
@@ -33,7 +33,7 @@
           <mat-list-item routerLink="/RegistrationComponent" routerLinkActive="active">
             <mat-icon class="pt-1">dashboard</mat-icon><span class="ps-2">Dashboard</span>
         </mat-list-item>
-          <mat-expansion-panel [class.mat-elevation-z0]="true">
+          <!-- <mat-expansion-panel [class.mat-elevation-z0]="true">
               <mat-expansion-panel-header>
                   Mobile Phone
               </mat-expansion-panel-header>
@@ -45,51 +45,42 @@
                       <mat-icon>android</mat-icon><span>Android</span>
                   </a>
               </mat-nav-list>
-          </mat-expansion-panel>
-          <mat-expansion-panel [class.mat-elevation-z0]="true">
-              <mat-expansion-panel-header>
-                  Frameworks
-              </mat-expansion-panel-header>
-              <mat-nav-list>
-                  <a mat-list-item routerLink="#">Spring</a>
-                  <a mat-list-item routerLink="#">Hibernate</a>
-                  <a mat-list-item routerLink="#">Struts</a>
-              </mat-nav-list>
-          </mat-expansion-panel>
+          </mat-expansion-panel> -->
+
       </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
   <div class="example-container mat-elevation-z8">
-    <!-- <div class="example-header">
-      <mat-form-field>
-        <input matInput  placeholder="Filter">
-        (keyup)="applyFilter($event.target.value)"
-      </mat-form-field>
-    </div> -->
-
-    <mat-table #table [dataSource]="data.data" matSort class="mat-elevation-z8 my-4" style="background-color: aliceblue;">
-
-
+    <section>
+      <div class="example-button-row " align="end">
+        <button mat-button color="primary" (click)="create_dialog()" ><mat-icon>add</mat-icon>Add New</button>
+      </div>
+    </section>
+    <mat-table #table [dataSource]="data" matSort  style="background-color: aliceblue;">
       <ng-container matColumnDef="Id">
         <mat-header-cell *matHeaderCellDef class="fw-bolder"> No </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="first name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> First Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> First Name
+        </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.first_name}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="last name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> last Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> last Name
+        </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.last_name}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="email" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> E-Mail </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bolder"> E-Mail
+         </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="Actions" >
         <mat-header-cell *matHeaderCellDef class="fw-bolder"> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <span  (click)="showPrompt(element)"> <mat-icon>edit</mat-icon></span>
-          <span class="p-2"> <mat-icon>delete</mat-icon></span></mat-cell>
+        <mat-cell *matCellDef="let element"> <span  (click)="showPrompt(element)">
+          <mat-icon>edit</mat-icon></span>
+          <span class="p-2"(click)="Delete_Dialog(element)"> <mat-icon>delete</mat-icon></span></mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

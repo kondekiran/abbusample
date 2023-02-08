@@ -8,10 +8,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class TableEditComponent {
   form: any = FormGroup;
-  @Inject(MAT_DIALOG_DATA) public data: any;
+
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<TableEditComponent>
+    public dialogRef: MatDialogRef<TableEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any = []
   ) {}
   ngOnInit(): void {
     console.log(this.data, 'wewq');
@@ -21,13 +22,23 @@ export class TableEditComponent {
   /* Method to build the form group for get  informations */
   FormBuild(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      Year: ['', Validators.required],
-      Color: [''],
+      id: '',
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      email: ['', Validators.required],
     });
+    this.form.patchValue(this.data);
   }
+  /*this method is to send the editted data from the dialog to the table component */
   submit() {
     console.log(this.form.getRawValue());
-    this.dialogRef.close();
+    this.dialogRef.close({
+      data: {
+        id: this.form.get('id'),
+        first_name: this.form.get('first_name'),
+        last_name: this.form.get('last_name'),
+        email: this.form.get('email'),
+      },
+    });
   }
 }

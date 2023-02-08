@@ -18,15 +18,27 @@
     <form [formGroup]="form">
       <div class="form-group" >
         <label for="formGroupExampleInput">First name</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" >
+        <input type="text" class="form-control"  formControlName="first_name"
+        id="formGroupExampleInput" >
+        <span class="Warning-color"*ngIf="form.get('first_name').touched && form.get('first_name').
+        hasError('required')">Enter
+          First name</span>
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Last Name</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="data.email" >
+        <input type="text" class="form-control"  formControlName="last_name"
+        id="formGroupExampleInput2"  >
+        <span class="Warning-color"*ngIf="form.get('last_name').touched && form.get('last_name').
+        hasError('required')">Enter
+          Last name</span>
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">E-mail</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" >
+        <input type="text" class="form-control"  formControlName="email"
+        id="formGroupExampleInput2" >
+        <span class="Warning-color"*ngIf="form.get('email').touched && form.get('email').
+        hasError('required')">Enter
+         Valid Email</span>
       </div>
     </form>
   </mat-dialog-content>
@@ -34,7 +46,7 @@
     <button mat-raised-button (click)="dialogRef.close(false)" color="primary">
       Close
     </button>
-    <button mat-raised-button (click)="submit()"  color="primary">
+    <button mat-raised-button (click)="submit()" [disabled]="!form.valid"  color="primary">
       Submit
     </button>
   </mat-dialog-actions>

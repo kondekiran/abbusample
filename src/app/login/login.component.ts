@@ -39,7 +39,6 @@ export class LoginComponent {
   subData() {
     if (this.loginForm.valid) {
       this.token = true;
-      // Setting the token in session storage
       sessionStorage.setItem('Token', this.token);
       this.router.navigate(['/Homepage']);
       console.log(this.loginForm.getRawValues(), 'forValues');

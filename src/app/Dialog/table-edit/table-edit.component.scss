@@ -8,3 +8,12 @@
   color: rgb(70 39 124) !important;
   text-align: center !important;
 }
+input.ng-touched.ng-invalid{
+  border:1px solid red;
+}
+input.ng-touched.ng-valid{
+  border:1px solid rgb(0, 255, 51);
+}
+.Warning-color{
+  color:red;
+  }
