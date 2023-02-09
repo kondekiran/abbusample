@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ApiServicesService } from '.././api-services.service';
 import { TableEditComponent } from '.././Dialog/table-edit/table-edit.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,11 +11,34 @@ import { TableEditComponent } from '.././Dialog/table-edit/table-edit.component'
 })
 export class RegistrationComponent {
   displayedColumns = ['Id', 'first name', 'last name', 'email', 'Actions'];
-  data: any;
+
   value: any;
-  user_data: any;
-  received_data: any = [];
+  userData: any;
+  receivedData: any = [];
+
+  tableData = [
+    {
+      id: 1,
+      email: 'ravid@gmail.com',
+      first_name: 'Ravid',
+      last_name: 'RV',
+    },
+    {
+      id: 2,
+      email: 'hrithik@gmail.com',
+      first_name: 'nithin',
+      last_name: 'raj',
+    },
+    {
+      id: 3,
+      email: 'niki@gmail.com',
+      first_name: 'nikitha',
+      last_name: 'isaac',
+    },
+  ];
+
   constructor(
+    private toastrService: ToastrService,
     private router: Router,
     private api: ApiServicesService,
     private dialog: MatDialog
@@ -24,30 +47,16 @@ export class RegistrationComponent {
   ngOnInit() {
     this.get_table_data();
   }
+
   /* this method is to get user datas using api*/
   get_table_data() {
-    console.log('s1 ');
-    this.api.get_table_data().subscribe((res) => {
-      console.log(res);
-      this.data = [
-        {
-          id: 1,
-          email: 'hrithik@gmail.com',
-          first_name: 'nithin',
-          last_name: 'raj',
-        },
-        {
-          id: 2,
-          email: 'niki@gmail.com',
-          first_name: 'nikitha',
-          last_name: 'isaac',
-        },
-      ];
-    });
+    sessionStorage.setItem('Data', JSON.stringify(this.tableData));
+    const data = sessionStorage.getItem('Data');
+    this.tableData = JSON.parse(data || '{}');
   }
+
   /*this method is to open the edit dialog box and its passing the data to the dilog */
   showPrompt(user_data: any): void {
-    console.log(user_data);
     const dialogRef = this.dialog.open(TableEditComponent, {
       width: '350px',
       height: '400px',
@@ -59,22 +68,23 @@ export class RegistrationComponent {
       },
     });
     dialogRef.afterClosed().subscribe((res) => {
-      this.received_data = res.data; // received data from confirm-component
-      console.log(this.received_data);
-      var id = this.received_data.id;
-      var edit_data = {
-        avatar: 'https://reqres.in/img/faces/1-image.jpg',
-        email: this.received_data.email.value,
-        first_name: this.received_data.first_name.value,
-        id: this.received_data.id.value,
-        last_name: this.received_data.last_name.value,
+      this.receivedData = res.data;
+      var editData = {
+        id: this.receivedData.id.value,
+        email: this.receivedData.email.value,
+        first_name: this.receivedData.first_name.value,
+        last_name: this.receivedData.last_name.value,
       };
-      console.log(edit_data);
-      this.api.edit_data(edit_data).subscribe((res) => {
-        console.log(res);
-      });
+
+      //below is to edit the datas
+      const test = [...this.tableData, editData];
+      const index = test.findIndex((x) => x.id === editData.id);
+      (test[index].email = editData.email),
+        (test[index].first_name = editData.first_name),
+        (test[index].last_name = editData.last_name);
     });
   }
+
   /*this method is to open the create dialog box  */
   create_dialog(): void {
     const dialogRef = this.dialog.open(TableEditComponent, {
@@ -82,28 +92,30 @@ export class RegistrationComponent {
       height: '400px',
     });
     dialogRef.afterClosed().subscribe((res) => {
-      this.received_data = res.data; // received data from confirm-component
-      console.log(this.received_data);
-      var lenth = this.data.length;
-      var newlength = lenth + 1;
-
+      this.receivedData = res.data;
       var edit_data = {
-        email: this.received_data.email.value,
-        first_name: this.received_data.first_name.value,
-        id: newlength,
-        last_name: this.received_data.last_name.value,
+        id: this.tableData.length + 1,
+        email: this.receivedData.email.value,
+        first_name: this.receivedData.first_name.value,
+        last_name: this.receivedData.last_name.value,
       };
-      this.data.push(edit_data);
-      console.log(this.data);
+
+      this.tableData = [...this.tableData, edit_data];
+      sessionStorage.setItem('Data', JSON.stringify(this.tableData));
     });
   }
+
   /*this method is to delete the user*/
   Delete_Dialog(data: any) {
-    console.log(data);
+    console.log(data.id);
     var id = data.id;
-    this.api.delete_user(id).subscribe((res) => {
-      console.log(res);
-    });
+    const deldata = [...this.tableData];
+    const index = deldata.findIndex((x) => x.id === data.id);
+    // delete this.tableData[index];
+    this.tableData.splice(index, 1);
+    this.toastrService.success('Message Success!', 'Title Success!');
+    this.tableData = [...this.tableData];
+    sessionStorage.setItem('Data', JSON.stringify(this.tableData));
   }
 
   /*this method is to log out from the application */

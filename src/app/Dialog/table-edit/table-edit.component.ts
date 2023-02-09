@@ -15,7 +15,6 @@ export class TableEditComponent {
     @Inject(MAT_DIALOG_DATA) public data: any = []
   ) {}
   ngOnInit(): void {
-    console.log(this.data, 'wewq');
     this.FormBuild();
   }
 
@@ -25,13 +24,12 @@ export class TableEditComponent {
       id: '',
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
     });
     this.form.patchValue(this.data);
   }
   /*this method is to send the editted data from the dialog to the table component */
   submit() {
-    console.log(this.form.getRawValue());
     this.dialogRef.close({
       data: {
         id: this.form.get('id'),

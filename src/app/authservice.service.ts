@@ -8,7 +8,7 @@ export class AuthserviceService implements CanActivate {
   /*Checks route navigation before the component is loaded */
   canActivate(): any {
     const token = sessionStorage.getItem('Token');
-    if (token) {
+    if (token == 'user' || token == 'admin') {
       console.log(token);
       return true;
     }

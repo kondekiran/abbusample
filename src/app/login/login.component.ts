@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthserviceService } from '../authservice.service';
 @Component({
@@ -14,13 +9,10 @@ import { AuthserviceService } from '../authservice.service';
 })
 export class LoginComponent {
   loginForm: any = FormGroup;
-  token: any = false;
+  token: any = '';
+  invalid: boolean = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private AuthserviceService: AuthserviceService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginFormBuild();
@@ -30,20 +22,28 @@ export class LoginComponent {
   loginFormBuild(): void {
     this.loginForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      // name:new FormControl<string |null>('name', Validators.required),
       Password: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
   /* Method to submit the login data */
   subData() {
-    if (this.loginForm.valid) {
-      this.token = true;
+    if (
+      this.loginForm.getRawValue().name == 'ravid' &&
+      this.loginForm.getRawValue().Password == 12345
+    ) {
+      this.token = 'user';
       sessionStorage.setItem('Token', this.token);
       this.router.navigate(['/Homepage']);
-      console.log(this.loginForm.getRawValues(), 'forValues');
+    } else if (
+      this.loginForm.getRawValue().name == 'admin' &&
+      this.loginForm.getRawValue().Password == 123456
+    ) {
+      this.token = 'admin';
+      sessionStorage.setItem('Token', this.token);
+      this.router.navigate(['/registration']);
     } else {
-      console.log('no');
+      this.invalid = true;
     }
   }
 }

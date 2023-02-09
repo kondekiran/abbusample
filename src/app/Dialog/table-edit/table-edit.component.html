@@ -38,15 +38,15 @@
         id="formGroupExampleInput2" >
         <span class="Warning-color"*ngIf="form.get('email').touched && form.get('email').
         hasError('required')">Enter
-         Valid Email</span>
+        Email</span>
       </div>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button (click)="dialogRef.close(false)" color="primary">
+    <button mat-raised-button (click)="dialogRef.close(false)"[disabled]="!form.valid" color="primary">
       Close
     </button>
-    <button mat-raised-button (click)="submit()" [disabled]="!form.valid"  color="primary">
+    <button mat-raised-button (click)="submit()"   color="primary">
       Submit
     </button>
   </mat-dialog-actions>

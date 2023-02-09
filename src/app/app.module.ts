@@ -23,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TableEditComponent } from './Dialog/table-edit/table-edit.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,11 @@ import { FormsModule } from '@angular/forms';
     TableEditComponent,
   ],
   imports: [
+    ToastrModule.forRoot({
+      timeOut: 5000, // 15 seconds
+      closeButton: true,
+      progressBar: true,
+    }),
     FormsModule,
     MatSelectModule,
     MatDialogModule,
@@ -43,6 +50,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatListModule,
     MatTableModule,
+    ToastrModule,
     MatCheckboxModule,
     ReactiveFormsModule,
     MatExpansionModule,
@@ -51,7 +59,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatSidenavModule,
   ],
-  providers: [AuthserviceService],
+  providers: [AuthserviceService, CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
