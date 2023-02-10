@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ApiServicesService } from '.././api-services.service';
 import { TableEditComponent } from '.././Dialog/table-edit/table-edit.component';
 import { ToastrService } from 'ngx-toastr';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { from } from 'rxjs';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent {
   displayedColumns = ['Id', 'first name', 'last name', 'email', 'Actions'];
-
+  search: any = new FormControl('');
   value: any;
   userData: any;
   receivedData: any = [];
@@ -36,7 +40,9 @@ export class RegistrationComponent {
       last_name: 'isaac',
     },
   ];
-
+  dataSource = new MatTableDataSource(this.tableData);
+  @ViewChild(MatSort)
+  sort!: MatSort;
   constructor(
     private toastrService: ToastrService,
     private router: Router,
@@ -46,11 +52,12 @@ export class RegistrationComponent {
 
   ngOnInit() {
     this.get_table_data();
+    this.dataSource.sort = this.sort;
   }
 
   /* this method is to get user datas using api*/
   get_table_data() {
-    sessionStorage.setItem('Data', JSON.stringify(this.tableData));
+    // sessionStorage.setItem('Data', JSON.stringify(this.tableData));
     const data = sessionStorage.getItem('Data');
     this.tableData = JSON.parse(data || '{}');
   }
@@ -116,6 +123,33 @@ export class RegistrationComponent {
     this.toastrService.success('Message Success!', 'Title Success!');
     this.tableData = [...this.tableData];
     sessionStorage.setItem('Data', JSON.stringify(this.tableData));
+  }
+
+  /*method for search filter */
+  applyFilter() {
+    console.log(this.search);
+    this.search.valueChanges.subscribe((data: any) => {
+      console.log(data);
+      var _dataSource = new MatTableDataSource(this.tableData);
+      var filterValue = data;
+      _dataSource.filter = filterValue.trim().toLowerCase();
+      this.tableData = _dataSource.filteredData;
+    });
+    // var _dataSource = new MatTableDataSource(this.tableData);
+    // var filterValue = this.search.value;
+    // _dataSource.filter = filterValue.trim().toLowerCase();
+    // this.tableData = _dataSource.filteredData;
+
+    // this.search.valueChanges.subscribe((data: any) => {
+    //   console.log(data);
+    // });
+    // this.tableData = this.tableData.filter((val) =>
+    //   val.first_name.toLowerCase().includes(this.search.value)
+    // );
+  }
+
+  reset() {
+    this.ngOnInit();
   }
 
   /*this method is to log out from the application */

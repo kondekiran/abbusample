@@ -9,8 +9,10 @@ import { AuthserviceService } from '../authservice.service';
 })
 export class LoginComponent {
   loginForm: any = FormGroup;
+  SignupForm: any = FormGroup;
   token: any = '';
   invalid: boolean = false;
+  register: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
@@ -26,6 +28,22 @@ export class LoginComponent {
     });
   }
 
+  /*method to build signup form*/
+  signupFormbuild() {
+    this.SignupForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      mobile: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+        ],
+      ],
+    });
+  }
   /* Method to submit the login data */
   subData() {
     if (
@@ -45,5 +63,13 @@ export class LoginComponent {
     } else {
       this.invalid = true;
     }
+  }
+
+  registerData() {
+    this.SignupForm;
+  }
+
+  registerUser() {
+    this.register = !this.register;
   }
 }

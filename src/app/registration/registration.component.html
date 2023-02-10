@@ -56,6 +56,33 @@
         <button mat-button color="primary" (click)="create_dialog()" ><mat-icon>add</mat-icon>Add New</button>
       </div>
     </section>
+    <!-- <mat-form-field  class="full-width">
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+
+        placeholder="Search Columns"
+        #input
+      />
+    </mat-form-field> -->
+<div class="row mb-2">
+  <div class="col-8">
+
+      <input type="text" class="form-control" (keyup)="applyFilter()" (keydown.backspace)="applyFilter()" [formControl]="search" id="inputPassword2" placeholder="Search">
+
+  </div>
+  <!-- <div class="col-2">
+
+    <button mat-button color="primary" (click)="applyFilter()" ><mat-icon>search</mat-icon>Search</button>
+
+</div> -->
+<div class="col-2">
+
+  <button mat-button color="primary" (click)="reset()" ><mat-icon>refresh</mat-icon>Reset</button>
+
+</div>
+    </div>
+
     <mat-table #table [dataSource]="tableData" matSort  style="background-color: aliceblue;">
       <ng-container matColumnDef="Id">
         <mat-header-cell *matHeaderCellDef class="fw-bolder"> No </mat-header-cell>
