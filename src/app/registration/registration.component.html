@@ -53,7 +53,8 @@
   <div class="example-container mat-elevation-z8">
     <section>
       <div class="example-button-row " align="end">
-        <button mat-button color="primary" (click)="create_dialog()" ><mat-icon>add</mat-icon>Add New</button>
+        <button mat-button color="primary" (click)="create_dialog()" ><mat-icon>add</mat-icon>
+          Add New</button>
       </div>
     </section>
     <!-- <mat-form-field  class="full-width">
@@ -68,12 +69,15 @@
 <div class="row mb-2">
   <div class="col-8">
 
-      <input type="text" class="form-control" (keyup)="applyFilter()" (keydown.backspace)="applyFilter()" [formControl]="search" id="inputPassword2" placeholder="Search">
+      <input type="text" class="form-control" (keyup)="applyFilter()"
+      (keydown.backspace)="applyFilter()" [formControl]="search" id="inputPassword2"
+       placeholder="Search">
 
   </div>
   <!-- <div class="col-2">
 
-    <button mat-button color="primary" (click)="applyFilter()" ><mat-icon>search</mat-icon>Search</button>
+    <button mat-button color="primary" (click)="applyFilter()" ><mat-icon>search</mat-icon>Search
+    </button>
 
 </div> -->
 <div class="col-2">
@@ -107,7 +111,8 @@
         <mat-header-cell *matHeaderCellDef class="fw-bolder"> Actions </mat-header-cell>
         <mat-cell *matCellDef="let element"> <span  (click)="showPrompt(element)">
           <mat-icon>edit</mat-icon></span>
-          <span class="p-2"(click)="Delete_Dialog(element)"> <mat-icon>delete</mat-icon></span></mat-cell>
+          <span class="p-2"(click)="Delete_Dialog(element)"> <mat-icon>delete</mat-icon></span>
+        </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
