@@ -6,7 +6,6 @@ import { TableEditComponent } from '.././Dialog/table-edit/table-edit.component'
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import { from } from 'rxjs';
 import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-registration',
@@ -39,10 +38,16 @@ export class RegistrationComponent {
       first_name: 'nikitha',
       last_name: 'isaac',
     },
+    {
+      id: 4,
+      email: 'alexa@gmail.com',
+      first_name: 'alexa',
+      last_name: 'exa',
+    },
   ];
   dataSource = new MatTableDataSource(this.tableData);
   @ViewChild(MatSort)
-  sort!: MatSort;
+  sort: any = MatSort;
   constructor(
     private toastrService: ToastrService,
     private router: Router,
@@ -57,7 +62,7 @@ export class RegistrationComponent {
 
   /* this method is to get user datas using api*/
   get_table_data() {
-    // sessionStorage.setItem('Data', JSON.stringify(this.tableData));
+    sessionStorage.setItem('Data', JSON.stringify(this.tableData));
     const data = sessionStorage.getItem('Data');
     this.tableData = JSON.parse(data || '{}');
   }
@@ -148,8 +153,9 @@ export class RegistrationComponent {
     // );
   }
 
+  /*this method is to reset the table datas*/
   reset() {
-    this.ngOnInit();
+    this.get_table_data();
   }
 
   /*this method is to log out from the application */

@@ -28,7 +28,8 @@
     <label class="pb-3 " for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" formControlName="Password"
     id="exampleInputPassword1">
-    <span class="Warning-color"*ngIf="loginForm.get('Password').touched && loginForm.get('Password').
+    <span class="Warning-color"*ngIf="loginForm.get('Password').touched && loginForm.get
+    ('Password').
     hasError('required')">Enter
       password</span>
   </div>
@@ -49,47 +50,56 @@
     <div class="col-8 d-flex justify-content-center" *ngIf="register">
       <div>
         <h3 class="pb-1">ACCION REGISTRATION FORM</h3>
-<form [formGroup]="SignupForm" (ngSubmit)="registerData();" class="w-100">
+<form [formGroup]="SignupForm" (ngSubmit)="registerData();"  class="w-100">
   <div class="form-group pb-3 pt-3">
-    <label class="pb-1 " for="exampleInputEmail1">User Name</label>
-    <input type="text" class="form-control" formControlName="name" id="exampleInputEmail1"
+    <label class="pb-1 " for="exampleInputEmail2">User Name</label>
+    <input type="text" class="form-control" formControlName="name" id="exampleInputEmail2"
       aria-describedby="emailHelp">
-    <span class="Warning-color" *ngIf="SignupForm.get('name').touched && SignupForm.get('name').
-    hasError('required')">
-      Enter User Name</span>
-    <span class="Warning-color"*ngIf="SignupForm.get('name').touched && SignupForm.get('name').
-    hasError('minLength')">
-      Enter valid Name</span>
+      <span class="Warning-color" *ngIf="SignupForm.get('name').touched && SignupForm.get('name').
+      hasError('required')">
+        Enter User Name</span>
   </div>
   <div class="form-group  pb-3">
-    <label  class="pb-1 " for="exampleInputPassword1">E-Mail</label>
+    <label  class="pb-1 " for="2mail2">E-Mail</label>
     <input type="email" class="form-control" formControlName="email"
-    id="exampleInputPassword1">
-    <span class="Warning-color"*ngIf="SignupForm.get('email').touched && SignupForm.get('email').
-    hasError('required')">Enter
-      valid Email</span>
-  </div>
-  <div class="form-group  pb-3">
-    <label  class="pb-1 " for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" formControlName="password"
-    id="exampleInputPassword1">
-    <span class="Warning-color"*ngIf="SignupForm.get('password').touched && SignupForm.get('password').
-    hasError('required')">Enter Valid
-      password</span>
-  </div>
-  <div class="form-group  pb-3">
-    <label  class="pb-1 " for="exampleInputPassword1">Phone</label>
-    <input type="number" class="form-control" formControlName="mobile"
-    id="exampleInputPassword1">
-    <span class="Warning-color"*ngIf="SignupForm.get('mobile').touched && SignupForm.get('mobile').
-    hasError('required')">Enter
-      valid Mobile Number</span>
-  </div>
+    id="email2">
+    <span class="Warning-color" *ngIf="SignupForm.get('email').touched && SignupForm.get('email').
+      hasError('required')">
+        Enter E-mail</span>
+        <span class="Warning-color" *ngIf="SignupForm.get('email').touched && SignupForm.get
+        ('email').
+        hasError('email')">
+          Entera Valid E-mail</span>
 
-  <span class="Warning-color"*ngIf="invalid">please Enter A Valid Credentials</span>
+  </div>
+  <div class="form-group  pb-3">
+    <label  class="pb-1 " for="pw1">Password</label>
+    <input type="password" class="form-control" formControlName="password"
+    id="pw1">
+    <span class="Warning-color" *ngIf="SignupForm.get('password').touched && SignupForm.get
+    ('password').
+    hasError('required')">
+      Enter Password</span>
+  </div>
+  <div class="form-group  pb-3">
+    <label  class="pb-1 " for="phone">Phone</label>
+    <input type="number" class="form-control" formControlName="mobile"
+    id="phone">
+    <span class="Warning-color" *ngIf="SignupForm.get('mobile').touched && SignupForm.get('mobile').
+    hasError('required')">
+      Enter Mobile Number</span>
+      <span class="Warning-color" *ngIf="SignupForm.get('mobile').touched && SignupForm.get
+      ('mobile').
+    hasError('maxlength')">
+      Mobile Number Should Not Greater Than 10 </span>
+      <span class="Warning-color" *ngIf="SignupForm.get('mobile').touched && SignupForm.get
+      ('mobile').
+    hasError('minlength')">
+    Mobile Number Should contain 10 Numbers </span>
+  </div>
   <div class=" text-center pb-3">
     <button type="submit" class="btn btn-primary bt buttonchange"
-    [disabled]="!SignupForm.valid">SIGN UP</button>
+    >SIGN UP</button>
   </div>
   <div class="mt-1">
     <p class="mb-0  text-center">Already An User ? <a (click)="registerUser()"

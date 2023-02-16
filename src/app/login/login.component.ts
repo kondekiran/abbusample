@@ -18,6 +18,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginFormBuild();
+    this.signupFormBuild();
   }
 
   /* Method to build the form group for get login informations */
@@ -29,17 +30,17 @@ export class LoginComponent {
   }
 
   /*method to build signup form*/
-  signupFormbuild() {
+  signupFormBuild(): void {
     this.SignupForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required]],
       mobile: [
         '',
         [
           Validators.required,
-          Validators.minLength(10),
           Validators.maxLength(10),
+          Validators.minLength(10),
         ],
       ],
     });
@@ -66,7 +67,9 @@ export class LoginComponent {
   }
 
   registerData() {
-    this.SignupForm;
+    console.log(this.SignupForm.getRawValue(), 'yes');
+    if (this.SignupForm.valid) {
+    }
   }
 
   registerUser() {
